@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multiplier × Gallagher — Global EOR Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange:      #F47920;
+  --orange-dark: #C95F0C;
+  --orange-pale: #FEF3EB;
+  --orange-mid:  #FDE0C8;
+  --black:       #111111;
+  --charcoal:    #222222;
+  --dark:        #333333;
+  --mid:         #666666;
+  --light:       #999999;
+  --rule:        #E4E4E4;
+  --bg:          #F8F8F8;
+  --white:       #FFFFFF;
+  --green:       #00A87A;
+  --green-bg:    #E6F7F2;
+  --fh: 'Barlow Condensed', sans-serif;
+  --fb: 'Barlow', sans-serif;
+  --r: 4px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 4px 14px rgba(0,0,0,0.05);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--fb);font-size:15px;line-height:1.6;color:var(--dark);background:var(--white);-webkit-font-smoothing:antialiased;}
+
+/* ── NAV ── */
+.nav{height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 52px;background:var(--orange);position:sticky;top:0;z-index:300;box-shadow:0 2px 12px rgba(0,0,0,0.2);}
+.nav-l{display:flex;align-items:center;gap:0;}
+
+/* Gallagher logo mark — gear + bold text matches actual logo */
+.g-logo{display:flex;align-items:center;gap:11px;text-decoration:none;}
+.g-gear{width:42px;height:42px;flex-shrink:0;}
+.g-wordtext{font-family:var(--fh);font-size:26px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:var(--black);line-height:1;}
+
+.ndiv{width:1px;height:28px;background:rgba(0,0,0,.2);margin:0 20px;}
+.nav-partner{font-family:var(--fh);font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(0,0,0,.65);display:flex;align-items:center;gap:7px;}
+.mdot{width:7px;height:7px;border-radius:50%;background:var(--black);}
+.nav-r{display:flex;align-items:center;gap:10px;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;font-family:var(--fh);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;border-radius:var(--r);text-decoration:none;border:none;cursor:pointer;transition:all .18s;}
+.btn-black{background:var(--black);color:var(--white);}
+.btn-black:hover{background:var(--charcoal);}
+.btn-outline-black{background:transparent;color:var(--black);border:2px solid rgba(0,0,0,.35);}
+.btn-outline-black:hover{border-color:var(--black);background:rgba(0,0,0,.08);}
+.btn-orange{background:var(--orange);color:var(--white);}
+.btn-orange:hover{background:var(--orange-dark);}
+.btn-white{background:var(--white);color:var(--black);}
+.btn-white:hover{background:#eee;}
+
+/* ── HERO ── */
+.hero{background:var(--black);min-height:460px;display:flex;align-items:stretch;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:0;top:0;bottom:0;width:40%;background:var(--orange);clip-path:polygon(14% 0,100% 0,100% 100%,0% 100%);z-index:0;}
+.hero-inner{max-width:1140px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 360px;align-items:center;gap:48px;padding:80px 52px;position:relative;z-index:2;}
+.hero-eye{font-family:var(--fh);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--orange);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.hero-eye::before{content:'';width:22px;height:2px;background:var(--orange);}
+.hero-h1{font-family:var(--fh);font-size:66px;font-weight:900;line-height:.95;text-transform:uppercase;color:var(--white);margin-bottom:20px;letter-spacing:.01em;}
+.hero-h1 span{color:var(--orange);}
+.hero-sub{font-size:16px;line-height:1.7;color:rgba(255,255,255,.58);margin-bottom:34px;max-width:480px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.8);border:1.5px solid rgba(255,255,255,.25);}
+.btn-ghost:hover{border-color:rgba(255,255,255,.65);color:#fff;}
+.hcard{background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:28px;backdrop-filter:blur(4px);}
+.hcard-title{font-family:var(--fh);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.4);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.08);}
+.hrow{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.06);}
+.hrow:last-child{border-bottom:none;padding-bottom:0;}
+.hnum{font-family:var(--fh);font-size:26px;font-weight:800;color:var(--white);line-height:1;}
+.hnum-o{color:var(--orange);}
+.hlbl{font-family:var(--fh);font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em;text-align:right;max-width:130px;}
+
+/* ── JESSIE BOOKING BANNER ── */
+.book-banner{background:var(--orange);padding:20px 52px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.book-banner-l{display:flex;align-items:center;gap:16px;}
+.book-avatar{width:48px;height:48px;border-radius:50%;background:var(--black);display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:20px;font-weight:900;color:var(--orange);flex-shrink:0;border:2px solid rgba(0,0,0,.3);}
+.book-text strong{display:block;font-family:var(--fh);font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--black);}
+.book-text span{font-size:13px;color:rgba(0,0,0,.65);}
+.book-banner .btn-black{font-size:13px;padding:12px 24px;}
+
+/* ── DIFF SECTION ── */
+.diff-section{background:var(--black);padding:72px 0 80px;border-top:1px solid rgba(255,255,255,.05);}
+.diff-inner{max-width:1140px;margin:0 auto;padding:0 52px;}
+.s-eye{font-family:var(--fh);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--orange);margin-bottom:8px;}
+.s-h2{font-family:var(--fh);font-size:38px;font-weight:900;text-transform:uppercase;letter-spacing:.02em;color:var(--white);line-height:1.05;margin-bottom:12px;}
+.s-h2 span{color:var(--orange);}
+.s-intro{font-size:16px;color:rgba(255,255,255,.5);max-width:580px;margin-bottom:48px;line-height:1.7;}
+.diff-header{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:3px;}
+.dh-other{padding:13px 22px;font-family:var(--fh);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;border-radius:var(--r);background:rgba(255,255,255,.06);color:rgba(255,255,255,.35);}
+.dh-us{padding:13px 22px;font-family:var(--fh);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;border-radius:var(--r);background:var(--orange);color:var(--white);}
+.diff-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:3px;}
+.dc-o{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:22px;}
+.dc-u{background:rgba(244,121,32,.08);border:1px solid rgba(244,121,32,.25);padding:22px;}
+.dc-topic{font-family:var(--fh);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);margin-bottom:8px;}
+.dc-topic-u{color:var(--orange);}
+.dc-val{font-size:14px;line-height:1.55;color:rgba(255,255,255,.55);}
+.dc-val strong{color:var(--white);}
+.dc-val-u{font-size:14px;line-height:1.55;color:rgba(255,255,255,.85);}
+.dc-val-u strong{color:var(--orange);}
+.tag-bad{display:inline-flex;align-items:center;gap:5px;font-family:var(--fh);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:3px 9px;border-radius:3px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.38);margin-bottom:7px;}
+.tag-good{display:inline-flex;align-items:center;gap:5px;font-family:var(--fh);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:3px 9px;border-radius:3px;background:rgba(0,168,122,.15);color:#00D49A;margin-bottom:7px;}
+.tco-box{background:var(--orange);border-radius:6px;padding:32px 36px;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;margin-top:3px;}
+.tco-text h3{font-family:var(--fh);font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:.03em;color:var(--white);margin-bottom:6px;}
+.tco-text p{font-size:14px;color:rgba(255,255,255,.75);max-width:460px;line-height:1.65;}
+.tco-nums{display:flex;gap:24px;flex-shrink:0;}
+.tco-n{text-align:center;}
+.tco-n strong{display:block;font-family:var(--fh);font-size:38px;font-weight:900;color:var(--white);line-height:1;}
+.tco-n span{font-family:var(--fh);font-size:11px;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.08em;}
+
+/* ── OVERVIEW ── */
+.overview{background:var(--bg);border-bottom:1px solid var(--rule);}
+.overview-inner{max-width:1140px;margin:0 auto;padding:52px;}
+.sh2{font-family:var(--fh);font-size:32px;font-weight:900;text-transform:uppercase;letter-spacing:.02em;color:var(--black);margin-bottom:24px;line-height:1.05;}
+.sh2 span{color:var(--orange);}
+.ov-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin-bottom:24px;}
+.ov-cell{background:var(--white);padding:20px 18px;border-top:3px solid transparent;transition:border-color .18s;}
+.ov-cell:hover{border-top-color:var(--orange);}
+.ov-icon{font-size:20px;margin-bottom:8px;}
+.ov-lbl{font-family:var(--fh);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--mid);margin-bottom:4px;}
+.ov-val{font-size:13px;font-weight:500;color:var(--charcoal);line-height:1.45;}
+.disc{background:var(--black);border-radius:var(--r);padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;border-left:5px solid var(--orange);}
+.disc-text h3{font-family:var(--fh);font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:var(--white);margin-bottom:5px;}
+.disc-text p{font-size:13px;color:rgba(255,255,255,.5);max-width:400px;line-height:1.6;}
+.disc-pills{display:flex;gap:10px;flex-shrink:0;flex-wrap:wrap;}
+.disc-pill{border:1.5px solid var(--orange);padding:10px 18px;border-radius:var(--r);text-align:center;min-width:100px;}
+.disc-pill strong{display:block;font-family:var(--fh);font-size:26px;font-weight:900;color:var(--orange);line-height:1;margin-bottom:2px;}
+.disc-pill span{font-family:var(--fh);font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em;}
+
+/* ── COUNTRY NAV ── */
+.cnav{background:var(--white);border-bottom:3px solid var(--orange);position:sticky;top:70px;z-index:200;box-shadow:0 3px 10px rgba(0,0,0,.07);}
+.cnav-inner{max-width:1140px;margin:0 auto;padding:0 52px;display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;}
+.cnav-inner::-webkit-scrollbar{display:none;}
+.ctab{display:inline-flex;align-items:center;gap:8px;padding:16px 20px;font-family:var(--fh);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--mid);border:none;background:none;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;transition:all .15s;margin-bottom:-3px;}
+.ctab:hover{color:var(--charcoal);}
+.ctab.active{color:var(--orange);border-bottom-color:var(--orange);background:var(--orange-pale);}
+.ctab-flag{font-size:16px;line-height:1;}
+
+/* ── MAIN ── */
+.page-main{max-width:1140px;margin:0 auto;padding:52px 52px 90px;}
+.cs{display:none;animation:fadeUp .25s ease;}
+.cs.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* Country header */
+.ch{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:28px;margin-bottom:0;border-bottom:1px solid var(--rule);flex-wrap:wrap;}
+.ch-l{display:flex;align-items:center;gap:16px;}
+.cflag{font-size:52px;line-height:1;filter:drop-shadow(0 2px 6px rgba(0,0,0,.12));}
+.cname{font-family:var(--fh);font-size:48px;font-weight:900;text-transform:uppercase;letter-spacing:.02em;color:var(--black);line-height:1;margin-bottom:5px;}
+.csub{font-family:var(--fh);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--mid);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.csdot{width:3px;height:3px;border-radius:50%;background:var(--rule);}
+.pbox{background:var(--black);border-radius:var(--r);padding:18px 26px;display:flex;align-items:center;gap:20px;border-top:4px solid var(--orange);}
+.pb-c{text-align:center;}
+.pb-l{font-family:var(--fh);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.38);margin-bottom:2px;}
+.pb-a{font-family:var(--fh);font-size:36px;font-weight:900;color:var(--white);line-height:1;}
+.pb-n{font-size:11px;color:rgba(255,255,255,.3);font-family:var(--fh);margin-top:2px;}
+.pb-d{width:1px;height:34px;background:rgba(255,255,255,.1);}
+.pb-z{font-family:var(--fh);font-size:26px;font-weight:900;color:var(--green);line-height:1;}
+
+/* Quick facts band */
+.qf-band{background:var(--orange);border-radius:var(--r);padding:18px 0;margin:24px 0 28px;display:grid;grid-template-columns:repeat(5,1fr);}
+.qf{padding:6px 20px;border-right:1px solid rgba(0,0,0,.12);}
+.qf:last-child{border-right:none;}
+.qf-label{font-family:var(--fh);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(0,0,0,.5);margin-bottom:4px;}
+.qf-val{font-family:var(--fh);font-size:14px;font-weight:800;color:var(--black);line-height:1.25;}
+
+/* Statutory card */
+.statutory{background:var(--white);border:2px solid var(--orange);border-radius:var(--r);overflow:hidden;margin-bottom:28px;}
+.stat-hdr{background:var(--orange);padding:14px 22px;display:flex;align-items:center;gap:10px;}
+.stat-hdr-title{font-family:var(--fh);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--black);}
+.stat-body{padding:20px 22px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.si{padding:14px;background:var(--orange-pale);border-radius:var(--r);border-left:3px solid var(--orange);}
+.si-lbl{font-family:var(--fh);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--orange-dark);margin-bottom:4px;}
+.si-val{font-size:13px;font-weight:400;color:var(--charcoal);line-height:1.5;}
+.si-val strong{color:var(--black);font-weight:700;}
+
+/* Section headings */
+.sh{font-family:var(--fh);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--orange);margin:28px 0 14px;display:flex;align-items:center;gap:10px;}
+.sh::after{content:'';flex:1;height:1px;background:var(--rule);}
+
+/* Card grids */
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:4px;}
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:4px;}
+.s2{grid-column:span 2;}
+
+/* Cards */
+.c{background:var(--white);border:1px solid var(--rule);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);transition:all .18s;position:relative;overflow:hidden;}
+.c::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--orange);opacity:0;transition:opacity .18s;}
+.c:hover{box-shadow:var(--shadow-lg);transform:translateY(-1px);}
+.c:hover::before{opacity:1;}
+.cl{font-family:var(--fh);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--mid);margin-bottom:8px;}
+.cv{font-size:14px;line-height:1.55;color:var(--dark);}
+.cv strong{color:var(--black);font-weight:700;}
+.cv em{font-style:normal;font-size:12px;color:var(--light);display:block;margin-top:4px;}
+.cklist{display:flex;flex-direction:column;gap:7px;margin-top:2px;}
+.cki{display:flex;align-items:flex-start;gap:8px;font-size:13px;line-height:1.5;color:var(--dark);}
+.ckm{width:16px;height:16px;border-radius:2px;background:var(--orange);color:var(--white);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:9px;font-weight:800;}
+.tag-g{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:3px;font-size:11px;font-weight:700;font-family:var(--fh);text-transform:uppercase;letter-spacing:.06em;background:var(--green-bg);color:var(--green);}
+
+/* ── JESSIE CTA STRIP (in-page) ── */
+.jessie-strip{background:var(--bg);border:1px solid var(--rule);border-radius:6px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin:36px 0 0;flex-wrap:wrap;}
+.jessie-strip-l{display:flex;align-items:center;gap:16px;}
+.jessie-avatar{width:52px;height:52px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:22px;font-weight:900;color:var(--black);flex-shrink:0;}
+.jessie-strip-text strong{display:block;font-family:var(--fh);font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--black);margin-bottom:2px;}
+.jessie-strip-text span{font-size:13px;color:var(--mid);}
+
+/* ── FOOTER ── */
+.footer{background:var(--black);padding:0;border-top:5px solid var(--orange);}
+
+/* Jessie CTA in footer */
+.footer-cta{background:var(--orange);padding:36px 52px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+.footer-cta-l strong{display:block;font-family:var(--fh);font-size:28px;font-weight:900;text-transform:uppercase;letter-spacing:.03em;color:var(--black);margin-bottom:4px;}
+.footer-cta-l p{font-size:14px;color:rgba(0,0,0,.65);max-width:440px;}
+.footer-cta-r{display:flex;align-items:center;gap:16px;flex-shrink:0;}
+.jessie-av-lg{width:60px;height:60px;border-radius:50%;background:var(--black);display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:26px;font-weight:900;color:var(--orange);flex-shrink:0;border:3px solid rgba(0,0,0,.2);}
+.footer-bottom{padding:28px 52px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;max-width:none;}
+.footer-bottom-l{display:flex;align-items:center;gap:12px;}
+.footer-gear{width:32px;height:32px;background:var(--orange);border-radius:3px;display:flex;align-items:center;justify-content:center;}
+.fn{font-family:var(--fh);font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--white);}
+.fl{font-family:var(--fh);font-size:13px;font-weight:700;color:var(--orange);text-decoration:none;text-transform:uppercase;letter-spacing:.04em;}
+.fl:hover{color:#FFB06A;}
+.fc{font-size:11px;color:rgba(255,255,255,.28);line-height:1.65;max-width:520px;text-align:right;}
+
+@media(max-width:960px){
+  .nav,.book-banner,.hero-inner,.diff-inner,.overview-inner,.page-main,.footer-cta,.footer-bottom{padding-left:20px;padding-right:20px;}
+  .hero-inner{grid-template-columns:1fr;padding-top:52px;padding-bottom:52px;}
+  .hero::before{display:none;}
+  .hcard{display:none;}
+  .diff-header,.diff-grid{grid-template-columns:1fr;}
+  .ov-grid{grid-template-columns:repeat(2,1fr);}
+  .cnav-inner{padding:0 16px;}
+  .cnav{top:70px;}
+  .g3,.g2{grid-template-columns:1fr;}
+  .s2{grid-column:span 1;}
+  .ch{flex-direction:column;align-items:flex-start;}
+  .qf-band{grid-template-columns:repeat(2,1fr);}
+  .stat-body{grid-template-columns:1fr;}
+  .disc,.tco-box,.footer-cta,.jessie-strip{flex-direction:column;align-items:flex-start;}
+  .fc{text-align:left;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV — Gallagher orange with black logo text matching actual brand -->
+<header class="nav">
+  <div class="nav-l">
+    <a class="g-logo" href="https://www.gallagher.com" target="_blank">
+      <!-- Accurate Gallagher cog logo: dense outer teeth ring + bold G centre -->
+      <svg class="g-gear" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- outer dense teeth ring (16 teeth matching actual logo) -->
+        <g fill="#111">
+          <rect x="20.5" y="0"   width="3" height="6.5" rx="1.2"/>
+          <rect x="20.5" y="37.5" width="3" height="6.5" rx="1.2"/>
+          <rect x="0"   y="20.5" width="6.5" height="3" rx="1.2"/>
+          <rect x="37.5" y="20.5" width="6.5" height="3" rx="1.2"/>
+          <rect x="28.8" y="2.2"  width="3" height="6.5" rx="1.2" transform="rotate(22.5 30 5.5)"/>
+          <rect x="11.5" y="35.8" width="3" height="6.5" rx="1.2" transform="rotate(22.5 13 39)"/>
+          <rect x="35.8" y="11.5" width="6.5" height="3" rx="1.2" transform="rotate(22.5 39 13)"/>
+          <rect x="2.2"  y="28.8" width="6.5" height="3" rx="1.2" transform="rotate(22.5 5.5 30)"/>
+          <rect x="33.5" y="4.5"  width="3" height="6.5" rx="1.2" transform="rotate(45 35 8)"/>
+          <rect x="7.5"  y="33.5" width="3" height="6.5" rx="1.2" transform="rotate(45 9 36.5)"/>
+          <rect x="33.5" y="33.5" width="3" height="6.5" rx="1.2" transform="rotate(-45 35 36.5)"/>
+          <rect x="7.5"  y="4.5"  width="3" height="6.5" rx="1.2" transform="rotate(-45 9 8)"/>
+          <rect x="37.8" y="20.5" width="6" height="3" rx="1.2" transform="rotate(67.5 40.8 22)"/>
+          <rect x="0.2"  y="20.5" width="6" height="3" rx="1.2" transform="rotate(67.5 3.2 22)"/>
+          <rect x="20.5" y="37.8" width="3" height="6" rx="1.2" transform="rotate(67.5 22 40.8)"/>
+          <rect x="20.5" y="0.2"  width="3" height="6" rx="1.2" transform="rotate(67.5 22 3.2)"/>
+        </g>
+        <!-- outer ring body -->
+        <circle cx="22" cy="22" r="17" fill="#111"/>
+        <circle cx="22" cy="22" r="14" fill="#F47920"/>
+        <!-- inner hub -->
+        <circle cx="22" cy="22" r="10" fill="#111"/>
+        <!-- G letterform -->
+        <text x="22" y="27" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="900" font-size="13" fill="#F47920" letter-spacing="0">G</text>
+      </svg>
+      <span class="g-wordtext">Gallagher</span>
+    </a>
+    <div class="ndiv"></div>
+    <div class="nav-partner"><span class="mdot"></span>× Multiplier Proposal</div>
+  </div>
+  <div class="nav-r">
+    <a href="https://calendar.app.google/emFv6Dgq4NQWddDM7" target="_blank" class="btn btn-outline-black">📅 Book with Jessie</a>
+    <a href="https://www.usemultiplier.com/" target="_blank" class="btn btn-black">Get Quote ↗</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eye">Global EOR Proposal — Prepared for Gallagher</p>
+      <h1 class="hero-h1">Global<br>Hiring.<br><span>Done Right.</span></h1>
+      <p class="hero-sub">Multiplier gives Gallagher a single, transparent platform to compliantly employ talent across Colombia, UAE, Mexico, Peru, and Kenya — with real humans answering when you call.</p>
+      <div class="hero-btns">
+        <a href="https://calendar.app.google/emFv6Dgq4NQWddDM7" target="_blank" class="btn btn-orange" style="font-size:13px;padding:13px 24px;">📅 Book a Call with Jessie</a>
+        <a href="#why" class="btn btn-ghost">Why Multiplier ↓</a>
+        <a href="#countries" class="btn btn-ghost">Country Details ↓</a>
+      </div>
+    </div>
+    <div class="hcard">
+      <p class="hcard-title">At a Glance</p>
+      <div class="hrow"><span class="hnum">150+</span><span class="hlbl">Countries Available</span></div>
+      <div class="hrow"><span class="hnum hnum-o">$600</span><span class="hlbl">Per Employee / Month</span></div>
+      <div class="hrow"><span class="hnum">$0</span><span class="hlbl">Setup or Onboarding Fee</span></div>
+      <div class="hrow"><span class="hnum">~5 Days</span><span class="hlbl">Avg. Onboarding Time</span></div>
+      <div class="hrow"><span class="hnum">24/7</span><span class="hlbl">Live Human Support</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK WITH JESSIE BANNER -->
+<div class="book-banner">
+  <div class="book-banner-l">
+    <div class="book-avatar">J</div>
+    <div class="book-text">
+      <strong>Ready to talk? Book time with Jessie.</strong>
+      <span>30-minute discovery call · No commitment · Walk through any country in detail</span>
+    </div>
+  </div>
+  <a href="https://calendar.app.google/emFv6Dgq4NQWddDM7" target="_blank" class="btn btn-black">📅 Schedule a Meeting</a>
+</div>
+
+<!-- WHY MULTIPLIER -->
+<section class="diff-section" id="why" style="scroll-margin-top:70px;">
+  <div class="diff-inner">
+    <p class="s-eye">The Multiplier Difference</p>
+    <h2 class="s-h2">Not All EOR Platforms<br><span>Are Built the Same.</span></h2>
+    <p class="s-intro">Many platforms promise global employment. Few deliver it with the transparency, personal service, and cost clarity that Gallagher deserves. Here's how Multiplier compares.</p>
+
+    <div class="diff-header">
+      <div class="dh-other">⚠ Typical EOR Platforms</div>
+      <div class="dh-us">✦ Multiplier</div>
+    </div>
+
+    <div class="diff-grid">
+      <div class="dc-o"><div class="dc-topic">Customer Support</div><div class="tag-bad">⚠ Chatbots & Ticket Queues</div><div class="dc-val">Support is routed through <strong>AI chatbots and ticketing systems</strong>. Urgent payroll or compliance issues sit in a queue — no guaranteed response time, no named contact.</div></div>
+      <div class="dc-u"><div class="dc-topic dc-topic-u">Customer Support</div><div class="tag-good">✓ Real Humans, Always</div><div class="dc-val-u"><strong>24/7 live human support</strong> — no bots, no ticket purgatory. When your employee in Dubai has a payroll question at 9pm Friday, a real person answers. Backed by a dedicated <strong>Implementation Manager</strong> for onboarding and a <strong>Customer Success Manager</strong> for ongoing operations.</div></div>
+    </div>
+
+    <div class="diff-grid">
+      <div class="dc-o"><div class="dc-topic">Account Management</div><div class="tag-bad">⚠ Shared / Rotating Teams</div><div class="dc-val">Account managers rotate across dozens of clients. Onboarding knowledge is lost over time. Every escalation means re-explaining your context from scratch.</div></div>
+      <div class="dc-u"><div class="dc-topic dc-topic-u">Account Management</div><div class="tag-good">✓ Named CSM — Not a Pool</div><div class="dc-val-u">Gallagher gets a <strong>single named Customer Success Manager</strong> who knows your account, your countries, and your team. One call, full context. Your CSM proactively flags regulatory changes across all your active markets.</div></div>
+    </div>
+
+    <div class="diff-grid">
+      <div class="dc-o"><div class="dc-topic">Pricing Model</div><div class="tag-bad">⚠ Hidden Fees Surface Later</div><div class="dc-val">Headline pricing looks competitive until invoices arrive. Common surprises: off-cycle payroll fees billed at discretion, and termination costs not disclosed at signing.</div></div>
+      <div class="dc-u"><div class="dc-topic dc-topic-u">Pricing Model</div><div class="tag-good">✓ Everything on the Table</div><div class="dc-val-u">Multiplier's pricing is <strong>fully disclosed upfront</strong>: $600/mo EOR fee · Off-cycle = 1 month's fee. No invoice surprises.</div></div>
+    </div>
+
+    <div class="diff-grid">
+      <div class="dc-o"><div class="dc-topic">Total Cost of Ownership</div><div class="tag-bad">⚠ Low Headline, High Reality</div><div class="dc-val">Platforms with lower advertised rates layer in entity-setup costs, compliance audit fees, benefit broker markups, and premium support tiers — making true cost 20–40% higher than quoted.</div></div>
+      <div class="dc-u"><div class="dc-topic dc-topic-u">Total Cost of Ownership</div><div class="tag-good">✓ Lower TCO, Proven</div><div class="dc-val-u">With <strong>owned entities</strong> in all 5 Gallagher markets — not costly partner networks — Multiplier absorbs entity overhead. Combined with <strong>$0 setup fees</strong> and fully transparent pricing, the total cost is materially lower over 12 months.</div></div>
+    </div>
+
+    <div class="diff-grid">
+      <div class="dc-o"><div class="dc-topic">Compliance & IP Risk</div><div class="tag-bad">⚠ Risk Can Sit with You</div><div class="dc-val">Partner-network platforms may pass compliance gaps and misclassification risk back to the client if a local partner entity has issues.</div></div>
+      <div class="dc-u"><div class="dc-topic dc-topic-u">Compliance & IP Risk</div><div class="tag-good">✓ Multiplier Takes the Risk</div><div class="dc-val-u"><strong>Multiplier is the legal employer of record</strong> — all employment, payroll, and compliance risk sits with us. IP ownership contractually retained by Gallagher. Backed by Commercial General Liability, Excess Liability, and Professional Indemnity insurance.</div></div>
+    </div>
+
+    <div class="tco-box">
+      <div class="tco-text">
+        <h3>Want to See the Numbers?</h3>
+        <p>Jessie can walk you through a side-by-side cost model for your specific headcount and countries — with no commitment required.</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;flex-shrink:0;">
+        <div class="tco-nums">
+          <div class="tco-n"><strong>$0</strong><span>Setup Fee</span></div>
+          <div class="tco-n"><strong>0</strong><span>Hidden Fees</span></div>
+        </div>
+        <a href="https://calendar.app.google/emFv6Dgq4NQWddDM7" target="_blank" class="btn btn-black" style="white-space:nowrap;padding:14px 22px;font-size:13px;">📅 Book with Jessie</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<section class="overview">
+  <div class="overview-inner">
+    <p class="s-eye" style="color:var(--orange);">Partnership Overview</p>
+    <h2 class="sh2">Platform <span>Capabilities</span></h2>
+    <div class="ov-grid">
+      <div class="ov-cell"><div class="ov-icon">🏢</div><div class="ov-lbl">Entity Model</div><div class="ov-val">Owned entities in all 5 Gallagher markets</div></div>
+      <div class="ov-cell"><div class="ov-icon">⚖️</div><div class="ov-lbl">Industries</div><div class="ov-val">All industries supported (role-based review)</div></div>
+      <div class="ov-cell"><div class="ov-icon">👥</div><div class="ov-lbl">Headcount</div><div class="ov-val">No minimum or maximum headcount required</div></div>
+      <div class="ov-cell"><div class="ov-icon">🖥️</div><div class="ov-lbl">Employee Portal</div><div class="ov-val">Single self-service portal — contracts, payslips, benefits</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTRY TABS -->
+<div class="cnav" id="countries" style="scroll-margin-top:70px;">
+  <div class="cnav-inner">
+    <button class="ctab active" onclick="show('colombia',this)"><span class="ctab-flag">🇨🇴</span> Colombia</button>
+    <button class="ctab" onclick="show('dubai',this)"><span class="ctab-flag">🇦🇪</span> UAE (Dubai)</button>
+    <button class="ctab" onclick="show('mexico',this)"><span class="ctab-flag">🇲🇽</span> Mexico</button>
+    <button class="ctab" onclick="show('kenya',this)"><span class="ctab-flag">🇰🇪</span> Kenya</button>
+    <button class="ctab" onclick="show('peru',this)"><span class="ctab-flag">🇵🇪</span> Peru</button>
+  </div>
+</div>
+
+<main class="page-main">
+
+<!-- ═══ COLOMBIA ═══ -->
+<section id="s-colombia" class="cs active">
+  <div class="ch">
+    <div class="ch-l"><span class="cflag">🇨🇴</span><div><h2 class="cname">Colombia</h2><p class="csub">Semi-monthly payroll<span class="csdot"></span>Owned Entity<span class="csdot"></span>COP / USD</p></div></div>
+    <div class="pbox"><div class="pb-c"><div class="pb-l">EOR Fee / Employee</div><div class="pb-a">$600</div><div class="pb-n">per month</div></div><div class="pb-d"></div><div class="pb-c"><div class="pb-l">Setup Fee</div><div class="pb-z">$0</div><div class="pb-n">none</div></div></div>
+  </div>
+  <div class="qf-band">
+    <div class="qf"><div class="qf-label">Notice Period</div><div class="qf-val">30 days (15 for performance)</div></div>
+    <div class="qf"><div class="qf-label">Payroll Cycle</div><div class="qf-val">Semi-monthly or Monthly</div></div>
+    <div class="qf"><div class="qf-label">13th Month?</div><div class="qf-val">✓ Yes — Primas (mandatory)</div></div>
+    <div class="qf"><div class="qf-label">14th Month?</div><div class="qf-val">✗ Not statutory</div></div>
+    <div class="qf"><div class="qf-label">Employer Burden</div><div class="qf-val">~30.5% on top of salary</div></div>
+  </div>
+  <div class="statutory">
+    <div class="stat-hdr"><span style="font-size:15px">📋</span><span class="stat-hdr-title">Colombian Statutory Requirements — Know Before You Hire</span></div>
+    <div class="stat-body">
+      <div class="si"><div class="si-lbl">Prima de Servicios (13th Month)</div><div class="si-val">Mandatory. Paid in <strong>two installments</strong>: June 30 and December 20 — 15 days' salary each. Multiplier invoices monthly so there's no year-end surprise.</div></div>
+      <div class="si"><div class="si-lbl">Cesantías (Severance Fund)</div><div class="si-val"><strong>1 month's salary per year</strong> worked, deposited annually into a regulated government fund. An employer cost fully tracked and managed by Multiplier.</div></div>
+      <div class="si"><div class="si-lbl">Social Security (~30.5%)</div><div class="si-val">Employer contributes across health (8.5%), pension (12%), ARL (risk), SENA, ICBF, and CCF. <strong>All remitted locally</strong> by Multiplier — nothing falls to Gallagher.</div></div>
+      <div class="si"><div class="si-lbl">Annual Leave</div><div class="si-val"><strong>15 business days</strong> per year after 1 year. Unused vacation accrues and must be compensated on termination.</div></div>
+      <div class="si"><div class="si-lbl">Notice Period</div><div class="si-val"><strong>30 calendar days</strong> standard. Reducible to <strong>15 days</strong> for termination due to demonstrated poor performance.</div></div>
+      <div class="si"><div class="si-lbl">Termination Indemnity</div><div class="si-val">Without just cause: <strong>20–30 days' salary per year</strong> worked depending on salary level. Multiplier structures all exits compliantly.</div></div>
+    </div>
+  </div>
+  <div class="sh">💰 Pricing & Fees</div>
+  <div class="g3">
+    <div class="c"><div class="cl">EOR Fee</div><div class="cv"><strong>$600</strong>/employee/month</div></div>
+    <div class="c"><div class="cl">Payroll Processing</div><div class="cv"><span class="tag-g">✓ Included</span><em>Off-cycle = 1 month's management fee</em></div></div>
+    <div class="c"><div class="cl">Termination Fee</div><div class="cv">~1 month of service fees</div></div>
+    <div class="c s2"><div class="cl">Total Cost Estimate</div><div class="cv">$600 + payroll + statutory contributions. Primas (13th month) invoiced monthly — no year-end lump sum. Detailed quote available from Jessie.</div></div>
+  </div>
+  <div class="sh">📋 Payroll & Compliance</div>
+  <div class="g2">
+    <div class="c"><div class="cl">Payroll Frequency</div><div class="cv"><strong>Semi-monthly or Monthly</strong> — Gallagher's choice</div></div>
+    <div class="c"><div class="cl">Tax & Contributions</div><div class="cv"><div class="cklist">
+      <div class="cki"><span class="ckm">✓</span>DIAN (tax authority) filings fully managed</div>
+      <div class="cki"><span class="ckm">✓</span>All employer/employee contributions remitted locally</div>
+      <div class="cki"><span class="ckm">✓</span>Locally-compliant payslips in Spanish</div>
+      <div class="cki"><span class="ckm">✓</span>Ongoing Colombian labor law monitoring</div>
+    </div></div></div>
+  </div>
+  <div class="sh">🏥 Benefits & Onboarding</div>
+  <div class="g3">
+    <div class="c"><div class="cl">Mandatory Benefits</div><div class="cv">All statutory benefits. Supplemental: <strong>Safetywing</strong> & <strong>AXA</strong>.</div></div>
+    <div class="c"><div class="cl">Time to Onboard</div><div class="cv"><strong>~5 business days</strong><em>Contract, bank setup, benefit enrollment</em></div></div>
+    <div class="c"><div class="cl">Support</div><div class="cv">Named CSM + Impl. Manager. <strong>24/7 live human support</strong> in Spanish & English.</div></div>
+  </div>
+  <div class="jessie-strip">
+    <div class="jessie-strip-l">
+      <div class="jessie-avatar">J</div>
+      <div class="jessie-strip-text">
+        <strong>Questions about hiring in Colombia?</strong>
+        <span>Jessie can walk through statutory costs, timelines, and a custom quote — no commitment needed.</span>
+      </div>
+    </div>
+    <a href="https://calendar.app.google/emFv6Dgq4NQWddDM7" target="_blank" class="btn btn-orange">📅 Book with Jessie</a>
+  </div>
+</section>
+
+<!-- ═══ DUBAI ═══ -->
+<section id="s-dubai" class="cs">
+  <div class="ch">
+    <div class="ch-l"><span class="cflag">🇦🇪</span><div><h2 class="cname">UAE (Dubai)</h2><p class="csub">Monthly payroll<span class="csdot"></span>Owned Entity<span class="csdot"></span>AED / USD</p></div></div>
+    <div class="pbox"><div class="pb-c"><div class="pb-l">EOR Fee / Employee</div><div class="pb-a">$600</div><div class="pb-n">per month</div></div><div class="pb-d"></div><div class="pb-c"><div class="pb-l">Setup Fee</div><div class="pb-z">$0</div><div class="pb-n">none</div></div></div>
+  </div>
+  <div class="qf-band">
+    <div class="qf"><div class="qf-label">Notice Period</div><div class="qf-val">30–90 days (per contract)</div></div>
+    <div class="qf"><div class="qf-label">Payroll Cycle</div><div class="qf-val">Monthly (WPS required)</div></div>
+    <div class="qf"><div class="qf-label">13th Month?</div><div class="qf-val">⚡ Customary — widely expected</div></div>
+    <div class="qf"><div class="qf-label">14th Month?</div><div class="qf-val">⚡ Customary — widely offered</div></div>
+    <div class="qf"><div class="qf-label">Income Tax?</div><div class="qf-val">✗ No personal income tax</div></div>
+  </div>
+  <div class="statutory">
+    <div class="stat-hdr"><span style="font-size:15px">📋</span><span class="stat-hdr-title">UAE Statutory Requirements — Know Before You Hire</span></div>
+    <div class="stat-body">
+      <div class="si"><div class="si-lbl">13th & 14th Month Pay</div><div class="si-val">Not legally mandated but <strong>market standard and widely expected</strong>. Failure to include in offer packages significantly hurts recruitment and retention in the UAE talent market.</div></div>
+      <div class="si"><div class="si-lbl">End of Service Gratuity (EOSG)</div><div class="si-val"><strong>Mandatory after 1 year.</strong> 21 days' basic salary/year for first 5 years, then 30 days/year. Must be paid on exit. Multiplier accrues monthly — no surprise lump sums.</div></div>
+      <div class="si"><div class="si-lbl">Notice Period</div><div class="si-val"><strong>30–90 days</strong> per contract (Federal Decree-Law No. 33 of 2021). Probationary employees: <strong>7–14 days</strong>. All Multiplier contracts are compliant.</div></div>
+      <div class="si"><div class="si-lbl">Annual Leave</div><div class="si-val"><strong>30 calendar days</strong> per year after 1 year. Pro-rated in year one. Cannot be forfeited — must be taken or compensated.</div></div>
+      <div class="si"><div class="si-lbl">Mandatory Health Insurance</div><div class="si-val">Dubai (DHA regulation) requires <strong>employer-provided health insurance for all employees</strong>. Multiplier partners with <strong>Dubai Insurance</strong> to provide compliant coverage.</div></div>
+      <div class="si"><div class="si-lbl">Visa & Work Permit Sponsorship</div><div class="si-val">All expatriate employees need a <strong>UAE residence visa + work permit</strong>. Multiplier manages full visa sponsorship through the owned entity. Allow <strong>2–3 weeks</strong> lead time alongside onboarding.</div></div>
+    </div>
+  </div>
+  <div class="sh">💰 Pricing & Fees</div>
+  <div class="g3">
+    <div class="c"><div class="cl">EOR Fee</div><div class="cv"><strong>$600</strong>/employee/month</div></div>
+    <div class="c"><div class="cl">Payroll Processing</div><div class="cv"><span class="tag-g">✓ Included</span><em>Off-cycle = 1 month's management fee</em></div></div>
+    <div class="c"><div class="cl">Termination Fee</div><div class="cv">~1 month of service fees</div></div>
+    <div class="c s2"><div class="cl">Total Cost Estimate</div><div class="cv">$600 + payroll + EOSG accrual + health insurance. 13th/14th month pay invoiced monthly if included. Detailed quote from Jessie — UAE is our most-requested market.</div></div>
+  </div>
+  <div class="sh">📋 Payroll & Compliance</div>
+  <div class="g2">
+    <div class="c"><div class="cl">Payroll Frequency</div><div class="cv"><strong>Monthly</strong> — required under UAE Wage Protection System (WPS)</div></div>
+    <div class="c"><div class="cl">Tax & Contributions</div><div class="cv"><div class="cklist">
+      <div class="cki"><span class="ckm">✓</span>WPS-compliant payroll filing managed</div>
+      <div class="cki"><span class="ckm">✓</span>EOSG accrued and tracked monthly</div>
+      <div class="cki"><span class="ckm">✓</span>UAE-compliant payslips</div>
+      <div class="cki"><span class="ckm">✓</span>Ongoing UAE Labour Law monitoring</div>
+    </div></div></div>
+  </div>
+  <div class="sh">🏥 Benefits & Onboarding</div>
+  <div class="g3">
+    <div class="c"><div class="cl">Mandatory Benefits</div><div class="cv">Statutory benefits + mandatory DHA health insurance via <strong>Dubai Insurance</strong>.</div></div>
+    <div class="c"><div class="cl">Time to Onboard</div><div class="cv"><strong>~5 days</strong> (can be less)<em>Visa/work permit runs in parallel — allow 2–3 weeks total</em></div></div>
+    <div class="c"><div class="cl">Support</div><div class="cv">Named CSM + Impl. Manager. <strong>24/7 live human support</strong> in Arabic & English.</div></div>
+  </div>
+  <div class="jessie-strip">
+    <div class="jessie-strip-l">
+      <div class="jessie-avatar">J</div>
+      <div class="jessie-strip-text">
+        <strong>Questions about hiring in the UAE?</strong>
+        <span>Jessie can walk through visa timelines, EOSG costs, and a custom quote for Dubai.</span>
+      </div>
+    </div>
+    <a href="https://calendar.app.google/emFv6Dgq4NQWddDM7" target="_blank" class="btn btn-orange">📅 Book with Jessie</a>
+  </div>
+</section>
+
+<!-- ═══ MEXICO ═══ -->
+<section id="s-mexico" class="cs">
+  <div class="ch">
+    <div class="ch-l"><span class="cflag">🇲🇽</span><div><h2 class="cname">Mexico</h2><p class="csub">Semi-monthly payroll<span class="csdot"></span>Owned Entity<span class="csdot"></span>MXN / USD</p></div></div>
+    <div class="pbox"><div class="pb-c"><div class="pb-l">EOR Fee / Employee</div><div class="pb-a">$600</div><div class="pb-n">per month</div></div><div class="pb-d"></div><div class="pb-c"><div class="pb-l">Setup Fee</div><div class="pb-z">$0</div><div class="pb-n">none</div></div></div>
+  </div>
+  <div class="qf-band">
+    <div class="qf"><div class="qf-label">Notice Period</div><div class="qf-val">30 calendar days</div></div>
+    <div class="qf"><div class="qf-label">Payroll Cycle</div><div class="qf-val">Semi-monthly (required by law)</div></div>
+    <div class="qf"><div class="qf-label">13th Month?</div><div class="qf-val">✓ Yes — Aguinaldo (mandatory)</div></div>
+    <div class="qf"><div class="qf-label">14th Month?</div><div class="qf-val">Not statutory (common in senior roles)</div></div>
+    <div class="qf"><div class="qf-label">Wet Ink Signatures</div><div class="qf-val">⚠ Required by labor law</div></div>
+  </div>
+  <div class="statutory">
+    <div class="stat-hdr"><span style="font-size:15px">📋</span><span class="stat-hdr-title">Mexican Statutory Requirements — Know Before You Hire</span></div>
+    <div class="stat-body">
+      <div class="si"><div class="si-lbl">Aguinaldo (13th Month — Mandatory)</div><div class="si-val">Legally required under Federal Labor Law. Minimum <strong>15 days' salary</strong> paid before December 20. Many employers pay 30+ days competitively. Multiplier invoices monthly to smooth cash flow.</div></div>
+      <div class="si"><div class="si-lbl">PTU — Profit Sharing</div><div class="si-val"><strong>10% of annual taxable profit</strong> distributed to employees by May 31 each year. First-year employees excluded. Multiplier calculates and distributes PTU on behalf of Gallagher.</div></div>
+      <div class="si"><div class="si-lbl">IMSS / INFONAVIT (~25–30%)</div><div class="si-val">Employer contributes to health/disability (IMSS), housing (INFONAVIT), and retirement (SAR). Approximately <strong>25–30% on top of salary</strong> — all remitted by Multiplier.</div></div>
+      <div class="si"><div class="si-lbl">Vacation + Prima Vacacional (25%)</div><div class="si-val">Minimum <strong>12 days in Year 1</strong>, scaling by 2 days/year. A mandatory <strong>25% vacation premium (Prima Vacacional)</strong> is also owed on top — a widely missed obligation.</div></div>
+      <div class="si"><div class="si-lbl">Termination (Without Cause)</div><div class="si-val"><strong>90-day indemnity + 20 days/year worked + seniority premium</strong>. Multiplier structures all exits to comply with Federal Labor Law.</div></div>
+      <div class="si"><div class="si-lbl">Wet Ink Signatures (Critical)</div><div class="si-val">Mexican labor law requires <strong>physical wet ink signatures</strong> on contracts — electronic signatures are invalid for labor purposes. Budget minimum <strong>5 business days</strong>. Multiplier manages the physical signing process.</div></div>
+    </div>
+  </div>
+  <div class="sh">💰 Pricing & Fees</div>
+  <div class="g3">
+    <div class="c"><div class="cl">EOR Fee</div><div class="cv"><strong>$600</strong>/employee/month</div></div>
+    <div class="c"><div class="cl">Payroll Processing</div><div class="cv"><span class="tag-g">✓ Included</span><em>Off-cycle = 1 month's management fee</em></div></div>
+    <div class="c"><div class="cl">Termination Fee</div><div class="cv">~1 month of service fees</div></div>
+    <div class="c s2"><div class="cl">Total Cost Estimate</div><div class="cv">$600 + payroll + IMSS/INFONAVIT + Aguinaldo (monthly) + PTU (annual, managed). Detailed quote from Jessie.</div></div>
+  </div>
+  <div class="sh">📋 Payroll & Compliance</div>
+  <div class="g2">
+    <div class="c"><div class="cl">Payroll Frequency</div><div class="cv"><strong>Semi-Monthly</strong> — required under Mexican Federal Labor Law</div></div>
+    <div class="c"><div class="cl">Tax & Contributions</div><div class="cv"><div class="cklist">
+      <div class="cki"><span class="ckm">✓</span>SAT filings and CFDI payslips managed</div>
+      <div class="cki"><span class="ckm">✓</span>IMSS, INFONAVIT, SAR contributions remitted</div>
+      <div class="cki"><span class="ckm">✓</span>Spanish-language CFDI tax-compliant payslips</div>
+      <div class="cki"><span class="ckm">✓</span>Ongoing Federal Labor Law monitoring</div>
+    </div></div></div>
+  </div>
+  <div class="sh">🏥 Benefits & Onboarding</div>
+  <div class="g3">
+    <div class="c"><div class="cl">Mandatory Benefits</div><div class="cv">All statutory benefits. Supplemental: <strong>Safetywing</strong> & <strong>AXA</strong>.</div></div>
+    <div class="c"><div class="cl">Time to Onboard</div><div class="cv"><strong>Min. 5 business days</strong><em>Wet ink signatures required — Multiplier manages physical process</em></div></div>
+    <div class="c"><div class="cl">Support</div><div class="cv">Named CSM + Impl. Manager. <strong>24/7 live human support</strong> in Spanish & English.</div></div>
+  </div>
+  <div class="jessie-strip">
+    <div class="jessie-strip-l">
+      <div class="jessie-avatar">J</div>
+      <div class="jessie-strip-text">
+        <strong>Questions about hiring in Mexico?</strong>
+        <span>Jessie can break down PTU, Aguinaldo, and wet ink requirements in a custom walkthrough.</span>
+      </div>
+    </div>
+    <a href="https://calendar.app.google/emFv6Dgq4NQWddDM7" target="_blank" class="btn btn-orange">📅 Book with Jessie</a>
+  </div>
+</section>
+
+<!-- ═══ KENYA ═══ -->
+<section id="s-kenya" class="cs">
+  <div class="ch">
+    <div class="ch-l"><span class="cflag">🇰🇪</span><div><h2 class="cname">Kenya</h2><p class="csub">Monthly payroll<span class="csdot"></span>Owned Entity<span class="csdot"></span>KES / USD</p></div></div>
+    <div class="pbox"><div class="pb-c"><div class="pb-l">EOR Fee / Employee</div><div class="pb-a">$600</div><div class="pb-n">per month</div></div><div class="pb-d"></div><div class="pb-c"><div class="pb-l">Setup Fee</div><div class="pb-z">$0</div><div class="pb-n">none</div></div></div>
+  </div>
+  <div class="qf-band">
+    <div class="qf"><div class="qf-label">Notice Period</div><div class="qf-val">Up to 28 days</div></div>
+    <div class="qf"><div class="qf-label">Payroll Cycle</div><div class="qf-val">Monthly</div></div>
+    <div class="qf"><div class="qf-label">13th Month?</div><div class="qf-val">Not statutory — varies by employer</div></div>
+    <div class="qf"><div class="qf-label">14th Month?</div><div class="qf-val">✗ Not statutory</div></div>
+    <div class="qf"><div class="qf-label">Employer Burden</div><div class="qf-val">~6% + Housing Levy 1.5%</div></div>
+  </div>
+  <div class="statutory">
+    <div class="stat-hdr"><span style="font-size:15px">📋</span><span class="stat-hdr-title">Kenyan Statutory Requirements — Know Before You Hire</span></div>
+    <div class="stat-body">
+      <div class="si"><div class="si-lbl">NSSF (Pension)</div><div class="si-val">Employer contributes KES 200/month (legacy) or up to <strong>6% of pensionable earnings</strong> under the 2013 Act (subject to ongoing court proceedings). Multiplier stays current with all rulings.</div></div>
+      <div class="si"><div class="si-lbl">SHIF (Health Insurance — 2024)</div><div class="si-val">Transitioning from NHIF to the <strong>Social Health Insurance Fund (SHIF)</strong>. Both employer and employee contribute <strong>2.75% of gross salary</strong>. Multiplier is already fully compliant with the 2024 rollout.</div></div>
+      <div class="si"><div class="si-lbl">Housing Levy (2023)</div><div class="si-val">Under the Affordable Housing Act: <strong>1.5% employer + 1.5% employee</strong> of gross monthly salary. Introduced 2023 — many EOR platforms are still catching up. Multiplier includes this in all Kenyan payroll runs.</div></div>
+      <div class="si"><div class="si-lbl">Annual Leave</div><div class="si-val">Minimum <strong>21 working days</strong> per year. Leave not taken within 12 months must be compensated. Multiplier tracks accrual and proactively flags upcoming liability.</div></div>
+      <div class="si"><div class="si-lbl">Notice Period</div><div class="si-val"><strong>Up to 28 days</strong> under the Employment Act 2007 — or longer if specified in the contract. Multiplier ensures all contracts meet or exceed the statutory minimum.</div></div>
+      <div class="si"><div class="si-lbl">Service Pay / Gratuity</div><div class="si-val">For employees not in a registered pension scheme: <strong>15 days' wages per year of service</strong> owed on termination. Multiplier tracks and discloses this obligation on every monthly invoice.</div></div>
+    </div>
+  </div>
+  <div class="sh">💰 Pricing & Fees</div>
+  <div class="g3">
+    <div class="c"><div class="cl">EOR Fee</div><div class="cv"><strong>$600</strong>/employee/month</div></div>
+    <div class="c"><div class="cl">Payroll Processing</div><div class="cv"><span class="tag-g">✓ Included</span><em>Off-cycle = 1 month's management fee</em></div></div>
+    <div class="c"><div class="cl">Termination Fee</div><div class="cv">~1 month of service fees</div></div>
+    <div class="c s2"><div class="cl">Total Cost Estimate</div><div class="cv">$600 + payroll + NSSF + SHIF + Housing Levy. Service pay accrued monthly and shown on invoice. Detailed quote from Jessie.</div></div>
+  </div>
+  <div class="sh">📋 Payroll & Compliance</div>
+  <div class="g2">
+    <div class="c"><div class="cl">Payroll Frequency</div><div class="cv"><strong>Monthly</strong></div></div>
+    <div class="c"><div class="cl">Tax & Contributions</div><div class="cv"><div class="cklist">
+      <div class="cki"><span class="ckm">✓</span>KRA PAYE filings fully managed</div>
+      <div class="cki"><span class="ckm">✓</span>NSSF, SHIF, Housing Levy remitted</div>
+      <div class="cki"><span class="ckm">✓</span>Locally-compliant payslips</div>
+      <div class="cki"><span class="ckm">✓</span>Employment Act 2007 monitoring</div>
+    </div></div></div>
+  </div>
+  <div class="sh">🏥 Benefits & Onboarding</div>
+  <div class="g3">
+    <div class="c"><div class="cl">Mandatory Benefits</div><div class="cv">All statutory benefits incl. SHIF. Supplemental: <strong>Safetywing</strong> & <strong>AXA</strong>.</div></div>
+    <div class="c"><div class="cl">Time to Onboard</div><div class="cv"><strong>~5 days</strong> (can be less)<em>Contract, SHIF enrollment, bank setup</em></div></div>
+    <div class="c"><div class="cl">Support</div><div class="cv">Named CSM + Impl. Manager. <strong>24/7 live human support</strong>.</div></div>
+  </div>
+  <div class="jessie-strip">
+    <div class="jessie-strip-l">
+      <div class="jessie-avatar">J</div>
+      <div class="jessie-strip-text">
+        <strong>Questions about hiring in Kenya?</strong>
+        <span>Jessie can walk through the new SHIF, Housing Levy, and service pay obligations specific to your team.</span>
+      </div>
+    </div>
+    <a href="https://calendar.app.google/emFv6Dgq4NQWddDM7" target="_blank" class="btn btn-orange">📅 Book with Jessie</a>
+  </div>
+</section>
+
+<!-- ═══ PERU ═══ -->
+<section id="s-peru" class="cs">
+  <div class="ch">
+    <div class="ch-l"><span class="cflag">🇵🇪</span><div><h2 class="cname">Peru</h2><p class="csub">Monthly payroll<span class="csdot"></span>Owned Entity<span class="csdot"></span>PEN / USD</p></div></div>
+    <div class="pbox"><div class="pb-c"><div class="pb-l">EOR Fee / Employee</div><div class="pb-a">$600</div><div class="pb-n">per month</div></div><div class="pb-d"></div><div class="pb-c"><div class="pb-l">Setup Fee</div><div class="pb-z">$0</div><div class="pb-n">none</div></div></div>
+  </div>
+  <div class="qf-band">
+    <div class="qf"><div class="qf-label">Notice Period</div><div class="qf-val">30 calendar days</div></div>
+    <div class="qf"><div class="qf-label">Payroll Cycle</div><div class="qf-val">Monthly</div></div>
+    <div class="qf"><div class="qf-label">13th Month?</div><div class="qf-val">✓ Yes — July bonus (mandatory)</div></div>
+    <div class="qf"><div class="qf-label">14th Month?</div><div class="qf-val">✓ Yes — December bonus (mandatory)</div></div>
+    <div class="qf"><div class="qf-label">Employer Burden</div><div class="qf-val">~18% + dual gratificaciones</div></div>
+  </div>
+  <div class="statutory">
+    <div class="stat-hdr"><span style="font-size:15px">📋</span><span class="stat-hdr-title">Peruvian Statutory Requirements — Know Before You Hire</span></div>
+    <div class="stat-body">
+      <div class="si"><div class="si-lbl">Gratificación — 13th Month (July)</div><div class="si-val">Legally required. One full month's gross salary by <strong>July 15</strong>. Includes an additional <strong>9% EsSalud bonus</strong> on the gratificación. Multiplier invoices monthly to smooth cost.</div></div>
+      <div class="si"><div class="si-lbl">Gratificación — 14th Month (December)</div><div class="si-val">Legally required. One full month's gross salary by <strong>December 15</strong>. Same 9% EsSalud bonus applies. Both are pro-rated for mid-semester hires — Multiplier calculates automatically.</div></div>
+      <div class="si"><div class="si-lbl">CTS (Severance Fund)</div><div class="si-val"><strong>1/12 of salary + 1/6 of bonuses</strong> deposited into the employee's personal bank account every May and November. Acts as pre-funded severance — fully managed by Multiplier.</div></div>
+      <div class="si"><div class="si-lbl">EsSalud (9% Health)</div><div class="si-val">Employer pays <strong>9% of monthly gross salary</strong> to the national health system. Employees get full medical coverage from Day 1. Remitted by Multiplier every payroll cycle.</div></div>
+      <div class="si"><div class="si-lbl">Vacation (30 days — Best in LATAM)</div><div class="si-val"><strong>30 calendar days</strong> per year — the most generous leave entitlement in Latin America. Must be taken within 1 year or compensated. Multiplier tracks accrual and flags obligations proactively.</div></div>
+      <div class="si"><div class="si-lbl">Termination Indemnity</div><div class="si-val">Unjustified dismissal triggers <strong>1.5 months per year worked</strong> (capped at 12 months) under Legislative Decree 728. Multiplier provides full exit structuring and compliance guidance.</div></div>
+    </div>
+  </div>
+  <div class="sh">💰 Pricing & Fees</div>
+  <div class="g3">
+    <div class="c"><div class="cl">EOR Fee</div><div class="cv"><strong>$600</strong>/employee/month</div></div>
+    <div class="c"><div class="cl">Payroll Processing</div><div class="cv"><span class="tag-g">✓ Included</span><em>Off-cycle = 1 month's management fee</em></div></div>
+    <div class="c"><div class="cl">Termination Fee</div><div class="cv">~1 month of service fees</div></div>
+    <div class="c s2"><div class="cl">Total Cost Estimate</div><div class="cv">$600 + payroll + EsSalud (9%) + both Gratificaciones + CTS deposits. Peru has the highest statutory bonus load in LATAM — Multiplier invoices monthly so there are no surprises. Detailed quote from Jessie.</div></div>
+  </div>
+  <div class="sh">📋 Payroll & Compliance</div>
+  <div class="g2">
+    <div class="c"><div class="cl">Payroll Frequency</div><div class="cv"><strong>Monthly</strong></div></div>
+    <div class="c"><div class="cl">Tax & Contributions</div><div class="cv"><div class="cklist">
+      <div class="cki"><span class="ckm">✓</span>SUNAT filings managed</div>
+      <div class="cki"><span class="ckm">✓</span>EsSalud, AFP/ONP pension contributions remitted</div>
+      <div class="cki"><span class="ckm">✓</span>Locally-compliant Spanish payslips</div>
+      <div class="cki"><span class="ckm">✓</span>Legislative Decree 728 monitoring</div>
+    </div></div></div>
+  </div>
+  <div class="sh">🏥 Benefits & Onboarding</div>
+  <div class="g3">
+    <div class="c"><div class="cl">Mandatory Benefits</div><div class="cv">All statutory incl. 13th & 14th month + CTS + EsSalud. Supplemental: <strong>Safetywing</strong> & <strong>AXA</strong>.</div></div>
+    <div class="c"><div class="cl">Time to Onboard</div><div class="cv"><strong>Min. 5 business days</strong><em>Contract execution + AFP/ONP pension enrollment</em></div></div>
+    <div class="c"><div class="cl">Support</div><div class="cv">Named CSM + Impl. Manager. <strong>24/7 live human support</strong> in Spanish & English.</div></div>
+  </div>
+  <div class="jessie-strip">
+    <div class="jessie-strip-l">
+      <div class="jessie-avatar">J</div>
+      <div class="jessie-strip-text">
+        <strong>Questions about hiring in Peru?</strong>
+        <span>Jessie can model the full cost of both Gratificaciones and CTS deposits for your headcount.</span>
+      </div>
+    </div>
+    <a href="https://calendar.app.google/emFv6Dgq4NQWddDM7" target="_blank" class="btn btn-orange">📅 Book with Jessie</a>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <!-- Jessie CTA -->
+  <div class="footer-cta">
+    <div class="footer-cta-l">
+      <strong>Ready to move forward? Let's talk.</strong>
+      <p>Book a 30-minute call with Jessie to get a custom cost model, answer your compliance questions, and see Multiplier's platform firsthand. No commitment required.</p>
+    </div>
+    <div class="footer-cta-r">
+      <div class="jessie-av-lg">J</div>
+      <div>
+        <div style="font-family:var(--fh);font-weight:800;font-size:16px;color:var(--black);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;">Jessie</div>
+        <div style="font-size:13px;color:rgba(0,0,0,.6);margin-bottom:12px;">Multiplier · Global EOR Specialist</div>
+        <a href="https://calendar.app.google/emFv6Dgq4NQWddDM7" target="_blank" class="btn btn-black" style="font-size:13px;padding:13px 28px;">📅 Book a Meeting</a>
+      </div>
+    </div>
+  </div>
+  <!-- Footer bottom bar -->
+  <div class="footer-bottom" style="max-width:none;">
+    <div class="footer-bottom-l">
+      <div class="footer-gear">
+        <svg viewBox="0 0 44 44" fill="none" width="22" height="22">
+          <circle cx="22" cy="22" r="17" fill="white" fill-opacity=".9"/>
+          <circle cx="22" cy="22" r="14" fill="#F47920"/>
+          <circle cx="22" cy="22" r="10" fill="#111"/>
+          <text x="22" y="27" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="900" font-size="13" fill="#F47920">G</text>
+        </svg>
+      </div>
+      <span class="fn">Gallagher</span>
+      <div style="width:1px;height:16px;background:rgba(255,255,255,.12)"></div>
+      <a href="https://www.usemultiplier.com/" target="_blank" class="fl">× Multiplier</a>
+    </div>
+    <p class="fc">Prepared by Multiplier for Gallagher Group Limited evaluation purposes. Statutory information is provided for guidance only and does not constitute legal advice. Pricing subject to change. Contact Jessie for a binding proposal. © 2025 Multiplier Technologies Inc.</p>
+  </div>
+</footer>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.cs').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
+  document.getElementById('s-' + id).classList.add('active');
+  btn.classList.add('active');
+  document.getElementById('countries').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+</script>
+</body>
+</html>
